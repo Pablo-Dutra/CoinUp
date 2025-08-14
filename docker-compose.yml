@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  database:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: pablodutra
+      POSTGRES_PASSWORD: 987PaDuBloTra
+      POSTGRES_DB: bancodados
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data-base/pgdata:/var/lib/postgresql/data
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./front-end:/app      
+  backend:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - database
+    env_file:
+      - ./back-end/.env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./back-end:/app
+
+
