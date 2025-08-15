@@ -7,12 +7,13 @@ from app.models.usuario import Usuario
 from app.schemas import Token
 from app.auth import create_access_token, get_current_user
 import hashlib
-from app.routes import conta, categoria
+from app.routes import conta, categoria, tipotransacao
 
 app = FastAPI(title="CoinUp API", docs_url="/docs", redoc_url="/redoc")
 
 app.include_router(conta.router)
 app.include_router(categoria.router)
+app.include_router(tipotransacao.router)
 
 @app.post("/login", response_model=Token, tags=["auth"])
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):

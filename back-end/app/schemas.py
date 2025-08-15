@@ -1,4 +1,3 @@
-
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
@@ -72,3 +71,16 @@ class ContaOut(ContaBase):
     model_config = {
         "from_attributes": True
     }
+
+class TipoTransacaoBase(BaseModel):
+    descricao: str
+
+class TipoTransacaoCreate(TipoTransacaoBase):
+    pass
+
+class TipoTransacaoOut(TipoTransacaoBase):
+    id: int
+    model_config = {
+        "from_attributes": True
+    }
+

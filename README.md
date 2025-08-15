@@ -52,4 +52,5 @@
 1. Para recriar todas as migrations da aplicação, basta apagá-las e executar o comando no backend:
    ```bash
 	alembic revision --autogenerate -m "cria estrutura inicial"
+   alembic upgrade head
 	```

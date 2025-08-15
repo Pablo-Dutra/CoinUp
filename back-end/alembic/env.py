@@ -23,6 +23,7 @@ config.set_main_option("sqlalchemy.url", url)
 
 from app.database.database import Base
 from app.models.conta import Conta
+from app.models.tipotransacao import TipoTransacao
 from app.models.categoria import Categoria
 from app.models.usuario import Usuario
 

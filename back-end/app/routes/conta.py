@@ -9,9 +9,8 @@ from app.auth import get_current_user
 
 router = APIRouter()
 
-
 # CRUD Conta
-@router.post("/conta", response_model=ContaOut, tags=["contas"])
+@router.post("/conta", response_model=ContaOut, tags=["Contas"])
 def create_conta(conta: ContaCreate, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     db_conta = Conta(**conta.dict())
     db.add(db_conta)
@@ -19,18 +18,18 @@ def create_conta(conta: ContaCreate, db: Session = Depends(get_db), current_user
     db.refresh(db_conta)
     return db_conta
 
-@router.get("/conta", response_model=list[ContaOut], tags=["contas"])
+@router.get("/conta", response_model=list[ContaOut], tags=["Contas"])
 def list_contas(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     return db.query(Conta).all()
 
-@router.get("/conta/{conta_id}", response_model=ContaOut, tags=["contas"])
+@router.get("/conta/{conta_id}", response_model=ContaOut, tags=["Contas"])
 def get_conta(conta_id: int, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     conta = db.query(Conta).filter(Conta.id == conta_id).first()
     if not conta:
         raise HTTPException(status_code=404, detail="Conta não encontrada")
     return conta
 
-@router.put("/conta/{conta_id}", response_model=ContaOut, tags=["contas"])
+@router.put("/conta/{conta_id}", response_model=ContaOut, tags=["Contas"])
 def update_conta(conta_id: int, conta: ContaCreate, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     db_conta = db.query(Conta).filter(Conta.id == conta_id).first()
     if not db_conta:
@@ -41,7 +40,7 @@ def update_conta(conta_id: int, conta: ContaCreate, db: Session = Depends(get_db
     db.refresh(db_conta)
     return db_conta
 
-@router.delete("/conta/{conta_id}", tags=["contas"])
+@router.delete("/conta/{conta_id}", tags=["Contas"])
 def delete_conta(conta_id: int, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     db_conta = db.query(Conta).filter(Conta.id == conta_id).first()
     if not db_conta:
@@ -51,7 +50,7 @@ def delete_conta(conta_id: int, db: Session = Depends(get_db), current_user=Depe
     return {"ok": True}
 
 # CRUD TipoConta
-@router.post("/tipoconta", response_model=TipoContaOut, tags=["tipoContas"])
+@router.post("/tipoconta", response_model=TipoContaOut, tags=["Contas"])
 def create_tipoconta(tipo: TipoContaCreate, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     db_tipo = TipoConta(**tipo.dict())
     db.add(db_tipo)
@@ -59,18 +58,18 @@ def create_tipoconta(tipo: TipoContaCreate, db: Session = Depends(get_db), curre
     db.refresh(db_tipo)
     return db_tipo
 
-@router.get("/tipoconta", response_model=list[TipoContaOut], tags=["tipoContas"])
+@router.get("/tipoconta", response_model=list[TipoContaOut], tags=["Contas"])
 def list_tipocontas(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     return db.query(TipoConta).all()
 
-@router.get("/tipoconta/{tipo_id}", response_model=TipoContaOut, tags=["tipoContas"])
+@router.get("/tipoconta/{tipo_id}", response_model=TipoContaOut, tags=["Contas"])
 def get_tipoconta(tipo_id: int, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     tipo = db.query(TipoConta).filter(TipoConta.id == tipo_id).first()
     if not tipo:
         raise HTTPException(status_code=404, detail="TipoConta não encontrada")
     return tipo
 
-@router.put("/tipoconta/{tipo_id}", response_model=TipoContaOut, tags=["tipoContas"])
+@router.put("/tipoconta/{tipo_id}", response_model=TipoContaOut, tags=["Contas"])
 def update_tipoconta(tipo_id: int, tipo: TipoContaCreate, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     db_tipo = db.query(TipoConta).filter(TipoConta.id == tipo_id).first()
     if not db_tipo:
@@ -81,7 +80,7 @@ def update_tipoconta(tipo_id: int, tipo: TipoContaCreate, db: Session = Depends(
     db.refresh(db_tipo)
     return db_tipo
 
-@router.delete("/tipoconta/{tipo_id}", tags=["tipoContas"])
+@router.delete("/tipoconta/{tipo_id}", tags=["Contas"])
 def delete_tipoconta(tipo_id: int, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     db_tipo = db.query(TipoConta).filter(TipoConta.id == tipo_id).first()
     if not db_tipo:
