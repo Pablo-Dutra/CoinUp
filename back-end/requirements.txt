@@ -7,4 +7,5 @@ alembic
 pydantic
 asyncpg
 databases
-
+python-jose
+passlib    

@@ -2,6 +2,31 @@
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
+from pydantic import EmailStr
+
+class UsuarioBase(BaseModel):
+    nome: str
+    email: EmailStr
+    ativo: Optional[bool] = True
+
+class UsuarioCreate(UsuarioBase):
+    password: str
+
+class UsuarioOut(UsuarioBase):
+    id: int
+    datacriacao: datetime
+    datalateracao: Optional[datetime]
+
+    class Config:
+        from_attributes = True
+
+class UsuarioLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
 
 class CategoriaBase(BaseModel):
     descricao: str
