@@ -84,3 +84,40 @@ class TipoTransacaoOut(TipoTransacaoBase):
         "from_attributes": True
     }
 
+class LancamentoBase(BaseModel):
+    idReferencia: int
+    idCategoria: int
+    idConta: int
+    idTipoTransacao: int
+    dataLancamento: datetime = None
+    dataTransacao: datetime
+    descricao: str
+    valor: float
+
+class LancamentoCreate(LancamentoBase):
+    pass
+
+class LancamentoOut(LancamentoBase):
+    id: int
+    dataLancamento: datetime
+    model_config = {
+        "from_attributes": True
+    }
+
+class LancamentoDetalhadoOut(BaseModel):
+    id: int
+    idReferencia: int
+    descricao: str
+    idCategoria: int
+    categoria_descricao: Optional[str]
+    idConta: int
+    conta_nome: Optional[str]
+    tipoconta_descricao: Optional[str]
+    idTipoTransacao: int
+    tipotransacao_descricao: Optional[str]
+    dataLancamento: datetime
+    dataTransacao: datetime
+    valor: float
+    model_config = {
+        "from_attributes": True
+    }
