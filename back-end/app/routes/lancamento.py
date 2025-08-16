@@ -17,9 +17,22 @@ def create_lancamento(lancamento: LancamentoCreate, db: Session = Depends(get_db
     db.refresh(db_lancamento)
     return db_lancamento
 
+from typing import Optional
+from datetime import date
+
 @router.get("/lancamentos", response_model=list[LancamentoDetalhadoOut], tags=["Lançamentos"])
-def list_lancamentos(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
-    lancamentos = db.query(Lancamento).all()
+def list_lancamentos(
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user),
+    dataInicial: Optional[date] = None,
+    dataFinal: Optional[date] = None
+):
+    query = db.query(Lancamento)
+    if dataInicial:
+        query = query.filter(Lancamento.dataTransacao >= dataInicial)
+    if dataFinal:
+        query = query.filter(Lancamento.dataTransacao <= dataFinal)
+    lancamentos = query.all()
     result = []
     for l in lancamentos:
         result.append(LancamentoDetalhadoOut(

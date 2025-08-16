@@ -1,4 +1,5 @@
-# Aplicação Backend Python com FastAPI - Frontend Vue JS - Base de dados Postgresql
+# Coin UP - Gerenciador Financeiro
+## Aplicação Backend Python com FastAPI - Frontend Vue JS - Base de dados Postgresql
 
 ## Como subir o banco de dados localmente:
 1. Na pasta 'data-base' execute:
@@ -52,5 +53,4 @@
 1. Para recriar todas as migrations da aplicação, basta apagá-las e executar o comando no backend:
    ```bash
 	alembic revision --autogenerate -m "cria estrutura inicial"
-   alembic upgrade head
 	```

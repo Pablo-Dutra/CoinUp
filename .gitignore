@@ -10,6 +10,9 @@ __pycache__/
 data-base/pgdata/
 data-base/pgdatalocal/
 
+# FrontEnd
+front-end/node_modules/
+
 # Distribution / packaging
 .Python
 build/

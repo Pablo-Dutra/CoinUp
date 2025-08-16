@@ -5,6 +5,7 @@ from app.database.database import get_db
 from app.models.usuario import Usuario
 from app.schemas import Token
 from app.auth import create_access_token, get_current_user
+from fastapi.middleware.cors import CORSMiddleware
 from app.routes import conta, categoria, lancamento
 import hashlib
 
@@ -13,6 +14,14 @@ app = FastAPI(title="CoinUp API", docs_url="/docs", redoc_url="/redoc")
 app.include_router(conta.router)
 app.include_router(categoria.router)
 app.include_router(lancamento.router)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/login", response_model=Token, tags=["Autenticação"])
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
